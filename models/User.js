@@ -33,10 +33,6 @@ const UserSchema = new Schema({
         type: String,
         default: 'https://via.placeholder.com/150',
     },
-    // followers: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Follow',
-    // },
     createdAt: {
         type: Date,
         default: Date.now,
