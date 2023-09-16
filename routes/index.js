@@ -6,7 +6,7 @@ const postRoutes = require('./api/post-routes');
 const followRoutes = require('./api/follow-routes');
 
 router.use('/api/user', userRoutes);
-// router.use('/api', postRoutes);
+router.use('/api/post', postRoutes);
 router.use('/api/follows', followRoutes);
 
 module.exports = router;

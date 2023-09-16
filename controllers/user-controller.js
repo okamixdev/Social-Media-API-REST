@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('../helpers/jwt')
 const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
-const path = require('path'); 
+const path = require('path');
 const { imFollowed, isFollowing } = require('../helpers/followUID');
 
 // ---------------------------------------------------------------------------------------------
@@ -173,7 +173,9 @@ const getAllUsers = async (req, res) => {
     try {
 
         // Gets all the user and auto paginates them based on itemsPerPage limiter and what page we want
-        const userData = await User.find().sort('_id').paginate(page, itemsPerPage).select({ password: 0, role: 0 })
+        const userData = await User.find()
+            .sort('_id').paginate(page, itemsPerPage)
+            .select({ password: 0, role: 0 })
 
         // Returns error if there is no data
         if (!userData) {
@@ -257,7 +259,7 @@ const updateUsers = async (req, res) => {
 
     try {
         // UPDATE USER
-        await User.findByIdAndUpdate({_id: userToUpdate._id}, req.body, { new: true })
+        await User.findByIdAndUpdate({ _id: userToUpdate._id }, req.body, { new: true })
 
         return res.status(200).send({
             status: 'SUCCESS',
@@ -305,7 +307,7 @@ const uploadAvatar = async (req, res) => {
     // Save the image to the DB
     try {
         // Update the user
-        const updatedUser = await User.findByIdAndUpdate({_id: req.userData.id}, { img: req.file.filename }, { new: true }).select({ password: 0, role: 0 })
+        const updatedUser = await User.findByIdAndUpdate({ _id: req.userData.id }, { img: req.file.filename }, { new: true }).select({ password: 0, role: 0 })
 
         // Return result
         res.status(200).send({

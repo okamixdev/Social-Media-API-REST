@@ -40,7 +40,7 @@ const isFollowing = async (userID) => {
 };
 
 // -----------------------------------------------------------------------
-// 
+// Get the users that are following me.
 const imFollowed = async (userID, userToCheck) => {
 
 
