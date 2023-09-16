@@ -248,15 +248,20 @@ const feed = async (req, res) => {
         // Get the users I follow in an array.
         const myFollows = await isFollowing(req.userData.id)
 
-
         // Find Posts in Users that I follow.
-
+        const feedPosts = await Post.find({ user: { $in: myFollows.usersFollowing } })
+            .populate('user', '-password -__V -role')
+            .sort('-created_at')
+            .paginate(page, itemsPerPage)
+            .exec()
 
         // Return result
         res.status(200).send({
             status: 'SUCCESS',
             message: 'Feed posts retrieved successfully',
-            myFollows: myFollows.usersFollowing
+            myFollows: myFollows.usersFollowing,
+            feedPosts: feedPosts,
+            page,
         })
     } catch (err) {
         return res.status(500).send({
